@@ -1,13 +1,49 @@
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-
-
-# useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
+import sqlite3
 
 
 class VeganRecipesPipeline:
+    def __init__(self):
+        self.create_connection()
+        self.create_table()
+
+    def create_connection(self):
+        self.connect = sqlite3.connect('recipes.db')
+        self.cursor = self.connect.cursor()
+
+    def create_table(self):
+        self.cursor.execute("""DROP TABLE IF EXISTS recipes""")
+
+        sql = """
+            CREATE TABLE recipes(
+                name TEXT,
+                image TEXT,
+                ingredients TEXT,
+                preparation TEXT,
+                time TEXT,
+                url TEXT UNIQUE
+            )
+        """
+        self.cursor.execute(sql)
+
+    def db_insert(self, item):
+        self.cursor.execute(
+            """
+            INSERT INTO recipes(
+                name, image, ingredients, preparation, time, url
+            )
+                VALUES(
+                '{}', '{}', '{}', '{}', '{}', '{}'
+            )""".format(
+                item['name'],
+                item['image'],
+                item['ingredients'],
+                item['preparation'],
+                item['time'],
+                item['url'],
+            )
+        )
+        self.connect.commit()
+
     def process_item(self, item, spider):
+        self.db_insert(item)
         return item
