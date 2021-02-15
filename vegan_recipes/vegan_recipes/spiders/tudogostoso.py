@@ -4,7 +4,7 @@ from ..items import VeganRecipesItem
 
 class TudogostosoSpider(Spider):
     name = 'tudogostoso'
-    # allowed_domains = ['tudogostoso.com.br']
+    allowed_domains = ['tudogostoso.com.br']
     start_urls = ['https://www.tudogostoso.com.br/busca?q=vegana']
 
     def parse(self, response):
@@ -15,14 +15,12 @@ class TudogostosoSpider(Spider):
         for link in links:
             yield Request(response.urljoin(link), callback=self.parse_recipes)
 
-        # # TODO: testar xpath
-        # """Sistema de paginação."""
-        # pagination = response.xpath(
-        #     '//div[@class="pagination"]//a//@href'
-        # ).getall()
-        # for next in pagination:
-        #     yield Request(response.urljoin(next), callback=self.parse)
-        pass
+        """Sistema de paginação."""
+        pagination = response.xpath(
+            '//div[@class="pagination"]//a//@href'
+        ).getall()
+        for next in pagination:
+            yield Request(response.urljoin(next), callback=self.parse)
 
     def parse_recipes(self, response):
         """Parsear a receita."""
@@ -42,14 +40,6 @@ class TudogostosoSpider(Spider):
         )
         time = response.css('time.dt-duration::text').get().replace('\n', ' ')
 
-        # yield {
-        #     'title': title,
-        #     'image': image,
-        #     'ingredients': ingredients,
-        #     'preparation': preparation,
-        #     'time': time,
-        #     'url': response.url,
-        # }
         items['title'] = title
         items['image'] = image
         items['ingredients'] = ingredients
