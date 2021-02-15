@@ -11,11 +11,11 @@ class VeganRecipesPipeline:
         self.cursor = self.connect.cursor()
 
     def create_table(self):
-        self.cursor.execute("""DROP TABLE IF EXISTS recipes""")
+        self.cursor.execute("""DROP TABLE IF EXISTS recipe""")
 
         sql = """
-            CREATE TABLE recipes(
-                name TEXT,
+            CREATE TABLE recipe(
+                title TEXT,
                 image TEXT,
                 ingredients TEXT,
                 preparation TEXT,
@@ -28,13 +28,13 @@ class VeganRecipesPipeline:
     def db_insert(self, item):
         self.cursor.execute(
             """
-            INSERT INTO recipes(
-                name, image, ingredients, preparation, time, url
+            INSERT INTO recipe(
+                title, image, ingredients, preparation, time, url
             )
                 VALUES(
                 '{}', '{}', '{}', '{}', '{}', '{}'
             )""".format(
-                item['name'],
+                item['title'],
                 item['image'],
                 item['ingredients'],
                 item['preparation'],

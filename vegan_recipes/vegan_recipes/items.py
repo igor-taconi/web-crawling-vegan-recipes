@@ -2,7 +2,7 @@ import scrapy
 
 
 class VeganRecipesItem(scrapy.Item):
-    name = scrapy.Field()
+    title = scrapy.Field()
     image = scrapy.Field()
     ingredients = scrapy.Field()
     preparation = scrapy.Field()
