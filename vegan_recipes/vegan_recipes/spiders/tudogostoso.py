@@ -32,11 +32,13 @@ class TudogostosoSpider(Spider):
             .replace('\n', '')
         )
         image = response.css('img.pic::attr(src)').get()
-        ingredients = ', '.join(
-            response.css('div#info-user ul li span::text').getall()
+        ingredients = '. '.join(
+            response.xpath('//div[@id="info-user"]//ul//li//text()').getall()
         )
-        preparation = ', '.join(
-            response.css('div.instructions ol li span::text').getall()
+        preparation = ' '.join(
+            response.xpath(
+                '//div[@itemprop="recipeInstructions"]//ol//li//text()'
+            ).getall()
         )
         time = response.css('time.dt-duration::text').get().replace('\n', ' ')
 
