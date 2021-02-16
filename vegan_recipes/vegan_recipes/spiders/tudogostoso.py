@@ -5,7 +5,11 @@ from ..items import VeganRecipesItem
 class TudogostosoSpider(Spider):
     name = 'tudogostoso'
     allowed_domains = ['tudogostoso.com.br']
-    start_urls = ['https://www.tudogostoso.com.br/busca?q=vegana']
+    start_urls = [
+        'https://www.tudogostoso.com.br/busca?q=vegana',
+        'https://www.tudogostoso.com.br/busca?q=vegano',
+        'https://www.tudogostoso.com.br/busca?q=vegan',
+    ]
 
     def parse(self, response):
         """Entrar em cada receita."""
