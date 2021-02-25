@@ -38,4 +38,4 @@ Após o script terminar sua execução aparecerá um arquivo _recipes.db_.
 Você pode entrar no site [SQL Online IDE](https://sqliteonline.com/) para visualizar o arquivo ou baixar o [DB Browser for SQLite](https://sqlitebrowser.org/dl/) em sua máquina, ou usar da forma que quiser.
 
 ## Contribuindo
-Sinta-se à vontade para crair novos spiders ou corrigir ao no projeto e enviar pull requests.
+Sinta-se à vontade para crair novos spiders ou realizar correções no projeto e enviar pull requests.
