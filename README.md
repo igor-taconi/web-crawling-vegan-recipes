@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```
 scrapy list
 ```
-###### Execute o spider com o nome `spider_name`:
+##### Execute o spider com o nome `spider_name`:
 ```
 scrapy crawl tudogostoso
 ```
